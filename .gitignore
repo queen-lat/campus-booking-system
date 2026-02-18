@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Next.js build
+.next/
+
+# Logs
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
