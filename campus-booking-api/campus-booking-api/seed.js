@@ -124,12 +124,16 @@ async function seedFacilities() {
 
     console.log("✅ Seeding completed successfully!");
     console.log(`🎉 ${addedCount} new facilities added\n`);
-    
-    process.exit(0);
   } catch (err) {
     console.error("❌ Seeding failed:", err.message);
-    process.exit(1);
+    throw err;
   }
 }
 
-seedFacilities();
+// Export for use as a module
+module.exports = seedFacilities;
+
+// Run directly if called as a script
+if (require.main === module) {
+  seedFacilities().then(() => process.exit(0)).catch(() => process.exit(1));
+}

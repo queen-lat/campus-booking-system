@@ -25,4 +25,28 @@ app.use("/bookings", bookingRoutes);
 app.use("/availability", availabilityRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
+// Initialize database on startup
+async function startServer() {
+  try {
+    console.log("🔄 Initializing database...");
+    
+    // Run migrations
+    const runMigration = require("./migrate");
+    await runMigration();
+    
+    // Seed facilities
+    const seedFacilities = require("./seed");
+    await seedFacilities();
+    
+    console.log("✅ Database initialization complete!");
+    
+    // Start the server
+    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  } catch (err) {
+    console.error("❌ Error initializing database:", err);
+    process.exit(1);
+  }
+}
+
+startServer();

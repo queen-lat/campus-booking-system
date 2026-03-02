@@ -75,11 +75,16 @@ async function runMigration() {
     console.log(`✅ Verification: Found ${rows.length} columns: ${rows.map(r => r.column_name).join(', ')}`);
 
     console.log("✅ Migration completed successfully!");
-    process.exit(0);
   } catch (err) {
     console.error("❌ Migration failed:", err.message);
-    process.exit(1);
+    throw err;
   }
 }
 
-runMigration();
+// Export for use as a module
+module.exports = runMigration;
+
+// Run directly if called as a script
+if (require.main === module) {
+  runMigration().then(() => process.exit(0)).catch(() => process.exit(1));
+}
