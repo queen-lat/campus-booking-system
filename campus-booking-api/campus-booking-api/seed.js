@@ -17,6 +17,18 @@ async function seedFacilities() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
+    
+    // Add description column if it doesn't exist
+    try {
+      await pool.query(`
+        ALTER TABLE facilities ADD COLUMN IF NOT EXISTS description TEXT;
+      `);
+    } catch (err) {
+      if (!err.message.includes("already exists")) {
+        console.log("ℹ️  Description column check: ", err.message);
+      }
+    }
+    
     console.log("✅ Facilities table created or already exists\n");
 
     // Create bookings table if it doesn't exist
@@ -69,15 +81,20 @@ async function seedFacilities() {
     let addedCount = 0;
     for (const facility of facilities) {
       try {
-        const result = await pool.query(
-          `INSERT INTO facilities (name, location, capacity, description) 
-           VALUES ($1, $2, $3, $4) 
-           ON CONFLICT (name) DO NOTHING
-           RETURNING id, name;`,
-          [facility.name, facility.location, facility.capacity, facility.description]
+        // Check if facility already exists
+        const checkResult = await pool.query(
+          "SELECT id FROM facilities WHERE name = $1",
+          [facility.name]
         );
         
-        if (result.rows.length > 0) {
+        if (checkResult.rows.length === 0) {
+          const result = await pool.query(
+            `INSERT INTO facilities (name, location, capacity, description) 
+             VALUES ($1, $2, $3, $4) 
+             RETURNING id, name;`,
+            [facility.name, facility.location, facility.capacity, facility.description]
+          );
+          
           console.log(`  ✅ Added: ${facility.name} (ID: ${result.rows[0].id})`);
           addedCount++;
         } else {
