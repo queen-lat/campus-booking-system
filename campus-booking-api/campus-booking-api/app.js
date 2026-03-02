@@ -8,7 +8,14 @@ const availabilityRoutes = require("./routes/availabilityRoutes");
 
 const app = express();
 
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => res.json({ message: "Campus Booking API running ✅" }));
