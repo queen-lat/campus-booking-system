@@ -42,49 +42,25 @@ async function seedFacilities() {
         name: "Engineering Lab",
         location: "Building A, Room 101",
         capacity: 30,
-        description: "State-of-the-art engineering laboratory with advanced equipment and tools"
+        description: "State-of-the-art engineering laboratory with advanced equipment"
       },
       {
-        name: "Conference Room A",
+        name: "Conference Room",
         location: "Building B, Floor 2",
         capacity: 20,
-        description: "Professional conference room with AV equipment and video conferencing setup"
+        description: "Professional conference room with video conferencing setup"
       },
       {
         name: "Study Hall",
         location: "Central Library, Ground Floor",
-        capacity: 100,
-        description: "Large study space with multiple study zones and quiet areas"
-      },
-      {
-        name: "Sports Gymnasium",
-        location: "Athletic Complex, Building D",
-        capacity: 200,
-        description: "Full-sized gymnasium with basketball court, volleyball area, and fitness equipment"
+        capacity: 50,
+        description: "Quiet study space for individual and group work"
       },
       {
         name: "Computer Lab",
         location: "IT Building, Room 205",
         capacity: 40,
-        description: "Computer lab with 40 high-performance workstations and software development tools"
-      },
-      {
-        name: "Meeting Room B",
-        location: "Building C, Floor 1",
-        capacity: 10,
-        description: "Small meeting room ideal for team discussions and presentations"
-      },
-      {
-        name: "Auditorium",
-        location: "Main Building, Hall 1",
-        capacity: 500,
-        description: "Large auditorium for lectures, seminars, and special events with full sound system"
-      },
-      {
-        name: "Seminar Room",
-        location: "Building A, Room 305",
-        capacity: 15,
-        description: "Intimate seminar space for small group discussions and workshops"
+        description: "Computer lab with 40 high-performance workstations"
       }
     ];
 
