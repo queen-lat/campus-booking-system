@@ -9,10 +9,21 @@ const availabilityRoutes = require("./routes/availabilityRoutes");
 const app = express();
 
 // CORS configuration
+// CORS configuration
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://campus-booking-system-o227.onrender.com"
+];
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
-  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
